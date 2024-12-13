@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Dax Reference Cheat Sheet"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "016dd784-4cea-4d9b-b009-7667d45837e9"
+  }
+}
