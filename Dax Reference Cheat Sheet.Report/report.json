@@ -1,0 +1,111 @@
+{
+  "config": "{\"version\":\"5.9\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY18SU07\",\"version\":\"3.18\",\"type\":2}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useStylableVisualContainerHeader\":true},\"objects\":{\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "pods": [
+    {
+      "boundSection": "ReportSection",
+      "config": "{\"acceptsFilterContext\":1}",
+      "name": "Pod"
+    },
+    {
+      "boundSection": "ReportSection69d111fb6e66c271947e",
+      "config": "{}",
+      "name": "Pod1"
+    }
+  ],
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY18SU07",
+            "path": "BaseThemes/CY18SU07.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{\"relationships\":[{\"source\":\"cba750ca0041d42bf7aa\",\"target\":\"e83acad341dddaf5c0de\",\"type\":1},{\"source\":\"e83acad341dddaf5c0de\",\"target\":\"342276aec8a5f022789a\",\"type\":1},{\"source\":\"e83acad341dddaf5c0de\",\"target\":\"e4a6a70482c49382a03a\",\"type\":1}],\"objects\":{\"outspace\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}}}}]}}",
+      "displayName": "DAX Reference - Cheat Sheet",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"073a4c6edac08aea540a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":6.8462757527733755,\"y\":0,\"z\":4000,\"width\":1261.3122655321415,\"height\":73.026941362916}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"DAX Reference - Cheat Sheet\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"30pt\"}}],\"horizontalTextAlignment\":\"center\"}]}}]}}}",
+          "filters": "[]",
+          "height": 73.02,
+          "width": 1261.31,
+          "x": 6.84,
+          "y": 0.00,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"342276aec8a5f022789a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":239.61965134706816,\"y\":230.49128367670366,\"z\":1000,\"width\":1030.364500792393,\"height\":476.9572107765452}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"DaxFunctions.DaxFunctionName\"},{\"queryRef\":\"DaxFunctions.DaxFunctionDescription\"},{\"queryRef\":\"DaxFunctions.DaxFunctionSyntax\"},{\"queryRef\":\"DaxFunctions.DaxFunctionWebLink\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DaxFunctions\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DaxFunctionName\"},\"Name\":\"DaxFunctions.DaxFunctionName\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DaxFunctionDescription\"},\"Name\":\"DaxFunctions.DaxFunctionDescription\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DaxFunctionSyntax\"},\"Name\":\"DaxFunctions.DaxFunctionSyntax\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DaxFunctionWebLink\"},\"Name\":\"DaxFunctions.DaxFunctionWebLink\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DaxFunctionName\"}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"306.83150715142506D\"}}}},\"selector\":{\"metadata\":\"DaxFunctions.DaxFunctionDescription\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"251.34417927453737D\"}}}},\"selector\":{\"metadata\":\"DaxFunctions.DaxFunctionSyntax\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"231.84951317280343D\"}}}},\"selector\":{\"metadata\":\"DaxFunctions.DaxFunctionReturns\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"281.11105798908943D\"}}}},\"selector\":{\"metadata\":\"DaxFunctions.DaxFunctionRemarks\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"200.42313744239146D\"}}}},\"selector\":{\"metadata\":\"DaxFunctions.DaxFunctionName\"}},{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"246.19018951629926D\"}}}},\"selector\":{\"metadata\":\"DaxFunctions.DaxFunctionWebLink\"}}]},\"vcObjects\":{\"stylePreset\":[{\"properties\":{\"name\":{\"expr\":{\"Literal\":{\"Value\":\"'BoldHeader'\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 476.95,
+          "width": 1030.36,
+          "x": 239.61,
+          "y": 230.49,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"cba750ca0041d42bf7aa\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1.1410459587955626,\"y\":65.03961965134707,\"z\":0,\"width\":1268.8431061806657,\"height\":104.97622820919176}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"DaxFunctionTypes.DaxFunctionTypes\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DaxFunctionTypes\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DaxFunctionTypes\"},\"Name\":\"DaxFunctionTypes.DaxFunctionTypes\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{\"orientation\":{\"expr\":{\"Literal\":{\"Value\":\"1D\"}}}}}],\"selection\":[{\"properties\":{\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}},\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 104.97,
+          "width": 1268.84,
+          "x": 1.14,
+          "y": 65.03,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"e4a6a70482c49382a03a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":22.820919175911254,\"y\":168.87480190174327,\"z\":2000,\"width\":1218.6370839936608,\"height\":57.05229793977813}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Min(DaxFunctionTypes.DaxFunctionTypeDescription)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DaxFunctionTypes\",\"Type\":0}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DaxFunctionTypeDescription\"}},\"Function\":3},\"Name\":\"Min(DaxFunctionTypes.DaxFunctionTypeDescription)\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DaxFunctionTypeDescription\"}},\"Function\":3}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'14'\"}}}}}],\"categoryLabels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"wordWrap\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]},\"vcObjects\":{\"border\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 57.05,
+          "width": 1218.63,
+          "x": 22.82,
+          "y": 168.87,
+          "z": 2000.00
+        },
+        {
+          "config": "{\"name\":\"e83acad341dddaf5c0de\",\"layouts\":[{\"id\":0,\"position\":{\"x\":4.56418383518225,\"y\":230.49128367670366,\"z\":3000,\"width\":230.49128367670366,\"height\":474.44691314939087}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"DaxFunctions.DaxFunctionName\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DaxFunctions\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"DaxFunctionName\"},\"Name\":\"DaxFunctions.DaxFunctionName\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"8D\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 474.44,
+          "width": 230.49,
+          "x": 4.56,
+          "y": 230.49,
+          "z": 3000.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "About",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "ReportSection69d111fb6e66c271947e",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"5b2c8a4279c75aceddde\",\"layouts\":[{\"id\":0,\"position\":{\"x\":10.269413629160063,\"y\":0,\"z\":1,\"width\":1265.4199683042789,\"height\":701.2868880621038}}],\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"About\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"24pt\",\"textDecoration\":\"underline\"}}]},{\"textRuns\":[{\"value\":\"\"}]},{\"textRuns\":[{\"value\":\"This report uses Web Data Source and all the data has been retrived from the below Dax reference link\",\"textStyle\":{\"fontSize\":\"18pt\"}}]},{\"textRuns\":[{\"value\":\"\"}]},{\"textRuns\":[{\"value\":\"https://msdn.microsoft.com/en-us/query-bi/dax/dax-function-reference\",\"textStyle\":{\"fontSize\":\"18pt\"},\"url\":\"https://msdn.microsoft.com/en-us/query-bi/dax/dax-function-reference\"}]}]}}]}}}",
+          "filters": "[]",
+          "height": 701.28,
+          "width": 1265.41,
+          "x": 10.26,
+          "y": 0.00,
+          "z": 1.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

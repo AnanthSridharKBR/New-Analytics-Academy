@@ -1,0 +1,835 @@
+{
+  "compatibilityLevel": 1550,
+  "model": {
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      },
+      {
+        "name": "PBIDesktopVersion",
+        "value": "2.107.683.0 (22.07)"
+      },
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"DaxFunctionTypes\",\"DaxFunctionDetailsBASE\",\"DaxFunctionTypesDescriptionBASE\",\"DaxFunctionsBASE\",\"ParamWebPath\",\"ParamFunctionTypeName\",\"GetDaxFunctionTypeDescription\",\"GetDaxFunctions\",\"ParamFunctionName\",\"DaxFunctions\",\"GetDaxFunctionDetails\"]"
+      }
+    ],
+    "culture": "en-US",
+    "cultures": [
+      {
+        "name": "en-US",
+        "linguisticMetadata": {
+          "content": {
+            "DynamicImprovement": "HighConfidence",
+            "Language": "en-US",
+            "Version": "1.0.0"
+          },
+          "contentType": "json"
+        }
+      }
+    ],
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "expressions": [
+      {
+        "name": "DaxFunctionDetailsBASE",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "expression": [
+          "let",
+          "    Source = Web.BrowserContents(ParamWebPath & ParamFunctionName),",
+          "    #\"Extracted Table From Html\" = Html.Table(Source, {{\"Column1\", \"P:nth-child(4)\"}, {\"Column2\", \"PRE\"}, {\"Column3\", \"P:nth-child(10)\"}, {\"Column4\", \"P:nth-child(12)\"}, {\"Column5\", \":not(*)\"}}, [RowSelector=\"P:nth-child(4)\"]),",
+          "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Extracted Table From Html\",{{\"Column1\", type text}, {\"Column2\", type text}, {\"Column3\", type text}, {\"Column4\", type text}, {\"Column5\", type text}}),",
+          "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"Column1\", \"DaxFunctionDescription\"}, {\"Column2\", \"DaxFunctionSyntax\"}, {\"Column3\", \"DaxFunctionReturns\"}, {\"Column4\", \"DaxFunctionRemarks\"}, {\"Column5\", \"DaxFunctionExamples\"}})",
+          "in",
+          "    #\"Renamed Columns\""
+        ],
+        "kind": "m",
+        "lineageTag": "ae8ada45-915a-4a72-b163-fb96ce10a480",
+        "queryGroup": "GetDaxFunctionDetails"
+      },
+      {
+        "name": "DaxFunctionTypesDescriptionBASE",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "expression": [
+          "let",
+          "    Source = Web.BrowserContents(ParamWebPath & ParamFunctionTypeName),",
+          "    #\"Extracted Table From Html\" = Html.Table(Source, {{\"Column1\", \"[id*=\"\"date-and-time-functions-dax\"\"]\"}, {\"Column2\", \"P:nth-child(4)\"}}, [RowSelector=\"[id*=\"\"date-and-time-functions-dax\"\"]\"]),",
+          "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Extracted Table From Html\",{{\"Column1\", type text}, {\"Column2\", type text}}),",
+          "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"Column1\", \"DaxFunctionTypeName\"}, {\"Column2\", \"DaxFunctionTypeDescription\"}})",
+          "in",
+          "    #\"Renamed Columns\""
+        ],
+        "kind": "m",
+        "lineageTag": "423c2767-767f-434a-bf29-a59c0d2e1a6f",
+        "queryGroup": "GetDaxFunctionTypeDescription"
+      },
+      {
+        "name": "DaxFunctionsBASE",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "expression": [
+          "let",
+          "    Source = Web.BrowserContents(ParamWebPath & ParamFunctionTypeName),",
+          "    #\"Extracted Table From Html\" = Html.Table(Source, {{\"Column1\", \"[id*=\"\"api-doc-contents\"\"] > P > A\"}}),",
+          "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Extracted Table From Html\",{{\"Column1\", type text}}),",
+          "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"Column1\", \"DaxFunctionName\"}})",
+          "in",
+          "    #\"Renamed Columns\""
+        ],
+        "kind": "m",
+        "lineageTag": "5c8cd18a-00ee-4675-9f4c-9987420b2821",
+        "queryGroup": "GetDaxFunctions"
+      },
+      {
+        "name": "ParamWebPath",
+        "description": "DAX Reference Web Path",
+        "expression": "\"https://msdn.microsoft.com/en-us/query-bi/dax/\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "3a4b650e-52a7-4b4c-a1b1-7100c9e42ed8"
+      },
+      {
+        "name": "ParamFunctionTypeName",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "description": "FunctionTypeName",
+        "expression": "\"date-and-time-functions-dax\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "a248f85b-9562-4740-b306-d7b3381d996d",
+        "queryGroup": "GetDaxFunctionTypeDescription"
+      },
+      {
+        "name": "GetDaxFunctionTypeDescription",
+        "expression": [
+          "let",
+          "    Source = (ParamWebPath as text, ParamFunctionTypeName as text) => let",
+          "        Source = Web.BrowserContents(ParamWebPath & ParamFunctionTypeName),",
+          "        #\"Extracted Table From Html\" = Html.Table(Source, {{\"Column1\", \"[id*=\"\"\" & ParamFunctionTypeName & \"\"\"]\"}, {\"Column2\", \"P:nth-child(4)\"}}, [RowSelector=\"[id*=\"\"\" & ParamFunctionTypeName & \"\"\"]\"]),",
+          "        #\"Changed Type\" = Table.TransformColumnTypes(#\"Extracted Table From Html\",{{\"Column1\", type text}, {\"Column2\", type text}}),",
+          "        #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"Column1\", \"DaxFunctionTypeName\"}, {\"Column2\", \"DaxFunctionTypeDescription\"}})",
+          "    in",
+          "        #\"Renamed Columns\"",
+          "in",
+          "    Source"
+        ],
+        "kind": "m",
+        "lineageTag": "770ff6c8-0fcf-4a54-8d79-6467f7b0afb2",
+        "queryGroup": "GetDaxFunctionTypeDescription"
+      },
+      {
+        "name": "GetDaxFunctions",
+        "expression": [
+          "let",
+          "    Source = (ParamWebPath as text, ParamFunctionTypeName as text) => let",
+          "        Source = Web.BrowserContents(ParamWebPath & ParamFunctionTypeName),",
+          "        #\"Extracted Table From Html\" = Html.Table(Source, {{\"Column1\", \"[id*=\"\"api-doc-contents\"\"] > P > A\"}}),",
+          "        #\"Changed Type\" = Table.TransformColumnTypes(#\"Extracted Table From Html\",{{\"Column1\", type text}}),",
+          "        #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"Column1\", \"DaxFunctionName\"}})",
+          "    in",
+          "        #\"Renamed Columns\"",
+          "in",
+          "    Source"
+        ],
+        "kind": "m",
+        "lineageTag": "aec011c9-4a0f-49c4-96fc-25b26eab402b",
+        "mAttributes": "[ FunctionQueryBinding = \"{\"\"exemplarFormulaName\"\":\"\"DaxFunctionsBASE\"\"}\" ]",
+        "queryGroup": "GetDaxFunctions"
+      },
+      {
+        "name": "ParamFunctionName",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          }
+        ],
+        "expression": "\"calendar-function-dax\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "kind": "m",
+        "lineageTag": "fa52b046-3674-4730-87ec-64389e52f4fc",
+        "queryGroup": "GetDaxFunctions"
+      },
+      {
+        "name": "GetDaxFunctionDetails",
+        "expression": [
+          "let",
+          "    Source = (ParamWebPath as text, ParamFunctionName as text) => let",
+          "        Source = Web.BrowserContents(ParamWebPath & ParamFunctionName),",
+          "        #\"Extracted Table From Html\" = Html.Table(Source, {{\"Column1\", \"P:nth-child(4)\"}, {\"Column2\", \"PRE\"}, {\"Column3\", \"P:nth-child(10)\"}, {\"Column4\", \"P:nth-child(12)\"}, {\"Column5\", \":not(*)\"}}, [RowSelector=\"P:nth-child(4)\"]),",
+          "        #\"Changed Type\" = Table.TransformColumnTypes(#\"Extracted Table From Html\",{{\"Column1\", type text}, {\"Column2\", type text}, {\"Column3\", type text}, {\"Column4\", type text}, {\"Column5\", type text}}),",
+          "        #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"Column1\", \"DaxFunctionDescription\"}, {\"Column2\", \"DaxFunctionSyntax\"}, {\"Column3\", \"DaxFunctionReturns\"}, {\"Column4\", \"DaxFunctionRemarks\"}, {\"Column5\", \"DaxFunctionExamples\"}})",
+          "    in",
+          "        #\"Renamed Columns\"",
+          "in",
+          "    Source"
+        ],
+        "kind": "m",
+        "lineageTag": "929c98da-90eb-4cfe-8d61-4d8f99132db4",
+        "mAttributes": "[ FunctionQueryBinding = \"{\"\"exemplarFormulaName\"\":\"\"DaxFunctionDetailsBASE\"\"}\" ]",
+        "queryGroup": "GetDaxFunctionDetails"
+      }
+    ],
+    "queryGroups": [
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "0"
+          }
+        ],
+        "folder": "GetDaxFunctionTypeDescription"
+      },
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "1"
+          }
+        ],
+        "folder": "GetDaxFunctions"
+      },
+      {
+        "annotations": [
+          {
+            "name": "PBI_QueryGroupOrder",
+            "value": "2"
+          }
+        ],
+        "folder": "GetDaxFunctionDetails"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "4609928a-0d0f-4f79-b248-e2c27370ca24",
+        "fromColumn": "DaxFunctionTypes",
+        "fromTable": "DaxFunctions",
+        "toColumn": "DaxFunctionTypes",
+        "toTable": "DaxFunctionTypes"
+      }
+    ],
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "DaxFunctionTypes",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "DaxFunctionTypes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "3361277b-6f10-4b2f-a8d4-ca933195a3f0",
+            "sourceColumn": "DaxFunctionTypes",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionTypesFormatted",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_ChangedProperties",
+                "value": "[\"IsHidden\"]"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "261e4fe9-1dbd-4302-8c78-2f7ff97d99ea",
+            "sourceColumn": "DaxFunctionTypesFormatted",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionWebPath",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_ChangedProperties",
+                "value": "[\"IsHidden\"]"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "9b21f72d-8dc7-423f-af3b-3b7cfa8f2e6b",
+            "sourceColumn": "DaxFunctionWebPath",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionTypeDescription",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "4af0d2e3-b182-445f-b63a-5d0f3252002f",
+            "sourceColumn": "DaxFunctionTypeDescription",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionTypeWebLink",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataCategory": "WebUrl",
+            "dataType": "string",
+            "expression": "DaxFunctionTypes[DaxFunctionWebPath] & DaxFunctionTypes[DaxFunctionTypesFormatted]",
+            "isDataTypeInferred": true,
+            "lineageTag": "02ce45fe-4816-4862-9f6b-1183d94848f6",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "lineageTag": "16ec75af-5749-480f-93aa-a2f231be17ff",
+        "partitions": [
+          {
+            "name": "DaxFunctionTypes-cbb6bbe8-227e-4bd8-8d83-148c741859ba",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Web.BrowserContents(\"https://msdn.microsoft.com/en-us/query-bi/dax/dax-function-reference\"),",
+                "    #\"Extracted Table From Html\" = Html.Table(Source, {{\"Column1\", \"[id*=\"\"api-doc-contents\"\"] > P > A:nth-child(1):nth-last-child(1)\"}}),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Extracted Table From Html\",{{\"Column1\", type text}}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"Column1\", \"DaxFunctionTypes\"}}),",
+                "    #\"Added Custom Column\" = Table.AddColumn(#\"Renamed Columns\", \"Custom\", each Text.Combine({Text.Combine(Splitter.SplitTextByDelimiter(\" \", QuoteStyle.None)(Splitter.SplitTextByDelimiter(\"(\", QuoteStyle.None)([DaxFunctionTypes]){0}?), \"-\"), Text.Reverse(Text.Middle(Text.Reverse([DaxFunctionTypes]), 1, 3))}), type text),",
+                "    #\"Lowercased Text\" = Table.TransformColumns(#\"Added Custom Column\",{{\"Custom\", Text.Lower, type text}}),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Lowercased Text\",{{\"Custom\", \"DaxFunctionTypesFormatted\"}}),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Renamed Columns1\", \"DaxFunctionWebPath\", each ParamWebPath),",
+                "    #\"Invoked Custom Function\" = Table.AddColumn(#\"Added Custom\", \"DaxFunctionTypeDescription\", each GetDaxFunctionTypeDescription([DaxFunctionWebPath], [DaxFunctionTypesFormatted])),",
+                "    #\"Expanded DaxFunctionTypeDescription\" = Table.ExpandTableColumn(#\"Invoked Custom Function\", \"DaxFunctionTypeDescription\", {\"DaxFunctionTypeDescription\"}, {\"DaxFunctionTypeDescription.DaxFunctionTypeDescription\"}),",
+                "    #\"Renamed Columns2\" = Table.RenameColumns(#\"Expanded DaxFunctionTypeDescription\",{{\"DaxFunctionTypeDescription.DaxFunctionTypeDescription\", \"DaxFunctionTypeDescription\"}})",
+                "in",
+                "    #\"Renamed Columns2\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DateTableTemplate_ab1a2bb6-d1f9-4037-aec4-e5f50bdecda8",
+        "annotations": [
+          {
+            "name": "__PBI_TemplateDateTable",
+            "value": "true"
+          },
+          {
+            "name": "DefaultItem",
+            "value": "DateHierarchy"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "390ad87c-4a9a-462e-a7f1-442ba5bc8320",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "7d99892e-92b4-4e8d-aa48-b6a692d5f2c4",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "3de0a55a-b3c8-42bd-8ea8-da64f1c2fba4",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Month",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "5ffad079-cce6-4f48-8985-17bee415ee8b",
+            "sortByColumn": "MonthNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "QuarterNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "633ff3c2-ef81-4403-947f-ef71edd4c65f",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Quarter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Qtr \" & [QuarterNo]",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "8a6d0c0f-4ba8-4e30-aa9d-dbcd5ed1a710",
+            "sortByColumn": "QuarterNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Day",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "isDataTypeInferred": true,
+            "isHidden": true,
+            "lineageTag": "b196f304-f403-4873-b1c9-41cc8c908827",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Date Hierarchy",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Year",
+                "column": "Year",
+                "lineageTag": "292a58dd-bc3e-4867-918f-53de51d6a7c2",
+                "ordinal": 0
+              },
+              {
+                "name": "Quarter",
+                "column": "Quarter",
+                "lineageTag": "99bf6f0f-3730-4e6c-a225-dbccfd6a5e4e",
+                "ordinal": 1
+              },
+              {
+                "name": "Month",
+                "column": "Month",
+                "lineageTag": "29dd87e0-4d1c-4828-9cc1-f8788e648194",
+                "ordinal": 2
+              },
+              {
+                "name": "Day",
+                "column": "Day",
+                "lineageTag": "2ef7e54d-9b27-486b-9ef3-8a1bd71e6bcb",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "f9c1b4a7-aea0-49e9-a7a2-97e51ec5500a"
+          }
+        ],
+        "isHidden": true,
+        "isPrivate": true,
+        "lineageTag": "4e10389a-777c-4c10-a647-30497cf3ed9d",
+        "partitions": [
+          {
+            "name": "DateTableTemplate_ab1a2bb6-d1f9-4037-aec4-e5f50bdecda8-aa38fbd5-0fa4-4d32-a367-bad6e1efb52f",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(2015,1,1), Date(2015,1,1))",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DaxFunctions",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "DaxFunctionTypes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_ChangedProperties",
+                "value": "[\"IsHidden\"]"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "d424fa5e-e2a1-4f7e-8db7-e465e3da0088",
+            "sourceColumn": "DaxFunctionTypes",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionTypesFormatted",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_ChangedProperties",
+                "value": "[\"IsHidden\"]"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "a22a5d9b-133d-4498-b424-df8201fc2fbf",
+            "sourceColumn": "DaxFunctionTypesFormatted",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionWebPath",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_ChangedProperties",
+                "value": "[\"IsHidden\"]"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "c37423dd-10ba-45eb-a030-da4ef06f589d",
+            "sourceColumn": "DaxFunctionWebPath",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionName",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "0c177baf-1562-4cef-a104-1699f2afcb9a",
+            "sourceColumn": "DaxFunctionName",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionNameFormatted",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_ChangedProperties",
+                "value": "[\"IsHidden\"]"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "20422e0a-b4df-4460-95fb-5c91099d5ac9",
+            "sourceColumn": "DaxFunctionNameFormatted",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionNameFormattedWithoutDax",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_ChangedProperties",
+                "value": "[\"IsHidden\"]"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "813cd11c-3352-43dc-84b2-ef7d3a3dd539",
+            "sourceColumn": "DaxFunctionNameFormattedWithoutDax",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionDescription",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "03ce0beb-15cf-4acf-84b9-14c2fc2380b6",
+            "sourceColumn": "DaxFunctionDescription",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionSyntax",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "7a70bb64-2947-4f27-b696-493451c53548",
+            "sourceColumn": "DaxFunctionSyntax",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionReturns",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_ChangedProperties",
+                "value": "[\"IsHidden\"]"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "9a4876eb-4f82-4d97-9f96-6f910238329e",
+            "sourceColumn": "DaxFunctionReturns",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionRemarks",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_ChangedProperties",
+                "value": "[\"IsHidden\"]"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "0b2ba053-1d48-4d15-80e4-72db10a04542",
+            "sourceColumn": "DaxFunctionRemarks",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionExamples",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_ChangedProperties",
+                "value": "[\"IsHidden\"]"
+              }
+            ],
+            "dataType": "string",
+            "isHidden": true,
+            "lineageTag": "e9980c47-40f9-4d7c-b7f5-f746c8b218ab",
+            "sourceColumn": "DaxFunctionExamples",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "DaxFunctionWebLink",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataCategory": "WebUrl",
+            "dataType": "string",
+            "expression": "DaxFunctions[DaxFunctionWebPath] & DaxFunctions[DaxFunctionNameFormatted] ",
+            "isDataTypeInferred": true,
+            "lineageTag": "aac30efa-1564-4d97-ae65-a9ef75567b90",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "DaxFunctionNameFormattedWithDax",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "c68091b8-985e-4606-9e1c-7ca49d7c8737",
+            "sourceColumn": "DaxFunctionNameFormattedWithDax",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "1cbe0505-7521-49fd-9b19-907101c55bda",
+        "partitions": [
+          {
+            "name": "DaxFunctions-eb682202-daf3-4fee-a2d5-afef0ceee44e",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Web.BrowserContents(\"https://msdn.microsoft.com/en-us/query-bi/dax/dax-function-reference\"),",
+                "    #\"Extracted Table From Html\" = Html.Table(Source, {{\"Column1\", \"[id*=\"\"api-doc-contents\"\"] > P > A:nth-child(1):nth-last-child(1)\"}}),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Extracted Table From Html\",{{\"Column1\", type text}}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"Column1\", \"DaxFunctionTypes\"}}),",
+                "    #\"Added Custom Column\" = Table.AddColumn(#\"Renamed Columns\", \"Custom\", each Text.Combine({Text.Combine(Splitter.SplitTextByDelimiter(\" \", QuoteStyle.None)(Splitter.SplitTextByDelimiter(\"(\", QuoteStyle.None)([DaxFunctionTypes]){0}?), \"-\"), Text.Reverse(Text.Middle(Text.Reverse([DaxFunctionTypes]), 1, 3))}), type text),",
+                "    #\"Lowercased Text\" = Table.TransformColumns(#\"Added Custom Column\",{{\"Custom\", Text.Lower, type text}}),",
+                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Lowercased Text\",{{\"Custom\", \"DaxFunctionTypesFormatted\"}}),",
+                "    #\"Added Custom\" = Table.AddColumn(#\"Renamed Columns1\", \"DaxFunctionWebPath\", each ParamWebPath),",
+                "    #\"Invoked Custom Function\" = Table.AddColumn(#\"Added Custom\", \"DaxFunctions\", each GetDaxFunctions([DaxFunctionWebPath], [DaxFunctionTypesFormatted])),",
+                "    DaxFunctionName = Table.ExpandTableColumn(#\"Invoked Custom Function\", \"DaxFunctions\", {\"DaxFunctionName\"}, {\"DaxFunctions.DaxFunctionName\"}),",
+                "    #\"Renamed Columns2\" = Table.RenameColumns(DaxFunctionName,{{\"DaxFunctions.DaxFunctionName\", \"DaxFunctionName\"}}),",
+                "    #\"Inserted Replaced Text\" = Table.AddColumn(#\"Renamed Columns2\", \"Replaced Text\", each Text.Replace (Text.Replace",
+                "   (",
+                "  Text.Replace",
+                "  (",
+                "  Text.Replace(",
+                "    Text.Lower([DaxFunctionName]), \" \", \"-\")",
+                "   ,\"(dax)\",\"dax\")",
+                "   ,\".\",\"-\")",
+                ",\"--\",\"-\")),",
+                "    #\"Filtered Rows1\" = Table.SelectRows(#\"Inserted Replaced Text\", each [Replaced Text] <> \"dax-function-reference\" and [Replaced Text] <> \"time-intelligence-functions-dax\" and [Replaced Text] <> \"understanding-functions-for-parent-child-hierarchies-in-dax\"),",
+                "    #\"Renamed Columns3\" = Table.RenameColumns(#\"Filtered Rows1\",{{\"Replaced Text\", \"DaxFunctionNameFormatted\"}}),",
+                "    #\"Added Custom Column1\" = Table.AddColumn(#\"Renamed Columns3\", \"Custom\", each Text.Combine(Splitter.SplitTextByDelimiter(\"-function-\", QuoteStyle.None)([DaxFunctionNameFormatted]), \"-\"), type text),",
+                "    #\"Added Custom1\" = Table.AddColumn(#\"Added Custom Column1\", \"DaxFunctionNameFormattedWithoutDax\", each Text.Replace([DaxFunctionNameFormatted],\"-dax\",\"\")),",
+                "    #\"Renamed Columns5\" = Table.RenameColumns(#\"Added Custom1\",{{\"Custom\", \"DaxFunctionNameFormattedWithDax\"}}),",
+                "    #\"Added Custom2\" = Table.AddColumn(#\"Renamed Columns5\", \"Custom\", each try GetDaxFunctionDetails([DaxFunctionWebPath],[DaxFunctionNameFormatted] ) otherwise try GetDaxFunctionDetails([DaxFunctionWebPath], [DaxFunctionNameFormattedWithoutDax]) otherwise GetDaxFunctionDetails([DaxFunctionWebPath], [DaxFunctionNameFormattedWithDax])),",
+                "    #\"Expanded Custom\" = Table.ExpandTableColumn(#\"Added Custom2\", \"Custom\", {\"DaxFunctionDescription\", \"DaxFunctionSyntax\", \"DaxFunctionReturns\", \"DaxFunctionRemarks\", \"DaxFunctionExamples\"}, {\"Custom.DaxFunctionDescription\", \"Custom.DaxFunctionSyntax\", \"Custom.DaxFunctionReturns\", \"Custom.DaxFunctionRemarks\", \"Custom.DaxFunctionExamples\"}),",
+                "    #\"Renamed Columns4\" = Table.RenameColumns(#\"Expanded Custom\",{{\"Custom.DaxFunctionDescription\", \"DaxFunctionDescription\"}, {\"Custom.DaxFunctionSyntax\", \"DaxFunctionSyntax\"}, {\"Custom.DaxFunctionReturns\", \"DaxFunctionReturns\"}, {\"Custom.DaxFunctionRemarks\", \"DaxFunctionRemarks\"}, {\"Custom.DaxFunctionExamples\", \"DaxFunctionExamples\"}})",
+                "in",
+                "    #\"Renamed Columns4\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

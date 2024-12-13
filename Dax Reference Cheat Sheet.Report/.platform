@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Dax Reference Cheat Sheet"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "52721c99-b884-4911-9331-8f6d5c189b7e"
+  }
+}
